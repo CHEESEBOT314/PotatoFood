@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ABC",
+    "DDD"
+  ],
+  "key": {
+    "A": {
+      "item": "minecraft:cooked_chicken"
+    },
+    "B": {
+      "item": "minecraft:brown_mushroom"
+    },
+    "C": {
+      "item": "potatofood:cheese"
+    },
+    "D": {
+      "item": "minecraft:bread"
+    }
+  },
+  "result": {
+    "item": "potatofood:pizza"
+  }
+}

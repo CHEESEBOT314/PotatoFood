@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " A ",
+    "BCD",
+    "EEE"
+  ],
+  "key": {
+    "A": {
+      "item": "potatofood:cheese"
+    },
+    "B": {
+      "item": "minecraft:cooked_beef"
+    },
+    "C": {
+      "item": "minecraft:cooked_porkchop"
+    },
+    "E": {
+      "item": "minecraft:cooked_chicken"
+    }
+  },
+  "result": {
+    "item": "potatofood:meat_pizza"
+  }
+}
