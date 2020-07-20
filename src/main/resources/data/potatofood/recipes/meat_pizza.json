@@ -15,8 +15,11 @@
     "C": {
       "item": "minecraft:cooked_porkchop"
     },
-    "E": {
+    "D": {
       "item": "minecraft:cooked_chicken"
+    },
+    "E": {
+      "item": "minecraft:bread"
     }
   },
   "result": {
