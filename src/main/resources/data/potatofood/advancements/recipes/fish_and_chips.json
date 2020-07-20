@@ -1,0 +1,32 @@
+{
+    "parent": "minecraft:recipes/root",
+    "rewards": {
+        "recipes": [
+            "potatofood:fish_and_chips"
+        ]
+    },
+    "criteria": {
+        "has_cooked_cod": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+                "items": [
+                    {
+                        "item": "minecraft:cooked_cod"
+                    }
+                ]
+            }
+        },
+        "has_the_recipe": {
+            "trigger": "minecraft:recipe_unlocked",
+            "conditions": {
+                "recipe": "potatofood:fish_and_chips"
+            }
+        }
+    },
+    "requirements": [
+        [
+            "has_cooked_cod",
+            "has_the_recipe"
+        ]
+    ]
+}
