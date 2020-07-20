@@ -72,10 +72,10 @@ public class PotatoFood {
         public static final RegistryObject<Item> HAM_CHEESE_SANDWICH = registerFood("ham_cheese_sandwich", Foods.HAM_CHEESE_SANDWICH, (p) -> p.rarity(Rarity.UNCOMMON));
         public static final RegistryObject<Item> HAM_SANDWICH = registerFood("ham_sandwich", Foods.HAM_SANDWICH, IIP);
         public static final RegistryObject<Item> MEAT_PIZZA = registerFood("meat_pizza", Foods.MEAT_PIZZA, (p) -> p.rarity(Rarity.RARE));
-        public static final RegistryObject<Item> MUESLI = registerFood("muesli", Foods.MUESLI, IIP);
+        public static final RegistryObject<SoupItem> MUESLI = registerSoup("muesli", Foods.MUESLI, IIP);
         public static final RegistryObject<Item> PIZZA = registerFood("pizza", Foods.PIZZA, (p) -> p.rarity(Rarity.UNCOMMON));
         public static final RegistryObject<Item> SWEET_BERRY_PIE = registerFood("sweet_berry_pie", Foods.SWEET_BERRY_PIE, IIP);
-        public static final RegistryObject<Item> YOGHURT = registerFood("yoghurt", Foods.YOGHURT, IIP);
+        public static final RegistryObject<SoupItem> YOGHURT = registerSoup("yoghurt", Foods.YOGHURT, IIP);
 
         private static RegistryObject<Item> registerFood(String name, Food food, UnaryOperator<Item.Properties> pMod) {
             return ITEM_DEFERRED_REGISTER.register(name, () -> new Item(pMod.apply(new Item.Properties()).food(food).group(ItemGroup.FOOD)));
