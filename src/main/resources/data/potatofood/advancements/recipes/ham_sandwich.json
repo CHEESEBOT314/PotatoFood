@@ -1,0 +1,32 @@
+{
+    "parent": "minecraft:recipes/root",
+    "rewards": {
+        "recipes": [
+            "potatofood:ham_sandwich"
+        ]
+    },
+    "criteria": {
+        "has_cooked_porkchop": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+                "items": [
+                    {
+                        "item": "minecraft:cooked_porkchop"
+                    }
+                ]
+            }
+        },
+        "has_the_recipe": {
+            "trigger": "minecraft:recipe_unlocked",
+            "conditions": {
+                "recipe": "potatofood:ham_sandwich"
+            }
+        }
+    },
+    "requirements": [
+        [
+            "has_cooked_porkchop",
+            "has_the_recipe"
+        ]
+    ]
+}
