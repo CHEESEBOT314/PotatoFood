@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "potatofood:rice"
+    },
+    {
+      "item": "minecraft:salmon"
+    }
+  ],
+  "result": {
+    "item": "potatofood:salmon_nigiri"
+  }
+}

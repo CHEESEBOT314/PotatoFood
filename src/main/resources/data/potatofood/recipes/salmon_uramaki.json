@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "potatofood:rice"
+    },
+    {
+      "item": "minecraft:dried_kelp"
+    },
+    {
+      "item": "minecraft:salmon"
+    }
+  ],
+  "result": {
+    "item": "potatofood:salmon_uramaki"
+  }
+}
