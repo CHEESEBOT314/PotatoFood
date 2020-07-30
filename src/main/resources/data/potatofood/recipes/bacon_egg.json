@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:cooked_porkchop"
+    },
+    {
+      "item": "potatofood:fried_egg"
+    }
+  ],
+  "result": {
+    "item": "potatofood:bacon_egg"
+  }
+}
