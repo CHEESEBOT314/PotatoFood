@@ -1,0 +1,32 @@
+{
+    "parent": "minecraft:recipes/root",
+    "rewards": {
+        "recipes": [
+            "potatofood:salmon_nigiri"
+        ]
+    },
+    "criteria": {
+        "has_rice": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+                "items": [
+                    {
+                        "item": "potatofood:rice"
+                    }
+                ]
+            }
+        },
+        "has_the_recipe": {
+            "trigger": "minecraft:recipe_unlocked",
+            "conditions": {
+                "recipe": "potatofood:salmon_nigiri"
+            }
+        }
+    },
+    "requirements": [
+        [
+            "has_rice",
+            "has_the_recipe"
+        ]
+    ]
+}
