@@ -10,6 +10,7 @@ import net.minecraft.loot.*;
 import net.minecraft.loot.functions.SetCount;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DistExecutor;
@@ -18,6 +19,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -34,10 +36,9 @@ public class PotatoFood {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         Blocks.BLOCK_DEFERRED_REGISTER.register(bus);
         Items.ITEM_DEFERRED_REGISTER.register(bus);
+        LootModifierSerializers.LOOT_MODIFIER_SERIALIZER_DEFERRED_REGISTER.register(bus);
 
         DistExecutor.safeRunWhenOn(Dist.CLIENT, () -> PotatoFoodClient::init);
-
-        MinecraftForge.EVENT_BUS.addListener(this::onLootTableLoad);
     }
 
     private static class Foods {
@@ -116,12 +117,9 @@ public class PotatoFood {
         }
     }
 
-    private void onLootTableLoad(LootTableLoadEvent event) {
-        if (event.getName().equals(LootTables.CHESTS_SIMPLE_DUNGEON)) {
-            event.getTable().addPool(LootPool.builder()
-                    .rolls(new RandomValueRange(1.0F, 4.0F))
-                    .addEntry(ItemLootEntry.builder(Items.RICE.get()).weight(10).acceptFunction(SetCount.builder(new RandomValueRange(2.0F, 4.0F))))
-                    .addEntry(EmptyLootEntry.func_216167_a().weight(115)).build());
-        }
+    public static class LootModifierSerializers {
+        private static final DeferredRegister<GlobalLootModifierSerializer<?>> LOOT_MODIFIER_SERIALIZER_DEFERRED_REGISTER = DeferredRegister.create(ForgeRegistries.LOOT_MODIFIER_SERIALIZERS, MODID);
+
+        public static final RegistryObject<GlobalLootModifierSerializer<ChestLootModifier>> CHEST_LOOT_MODIFIER = LOOT_MODIFIER_SERIALIZER_DEFERRED_REGISTER.register("chest_loot", ChestLootModifier.Serializer::new);
     }
 }
