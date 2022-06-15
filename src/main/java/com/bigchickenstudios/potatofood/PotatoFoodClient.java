@@ -1,7 +1,7 @@
 package com.bigchickenstudios.potatofood;
 
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -15,6 +15,6 @@ public class PotatoFoodClient {
 
     private static void setup(FMLClientSetupEvent event) {
 
-        PotatoFood.Blocks.RICE.ifPresent((b) -> RenderTypeLookup.setRenderLayer(b, RenderType.getCutout()));
+        PotatoFood.Blocks.RICE.ifPresent((b) -> ItemBlockRenderTypes.setRenderLayer(b, RenderType.cutout()));
     }
 }

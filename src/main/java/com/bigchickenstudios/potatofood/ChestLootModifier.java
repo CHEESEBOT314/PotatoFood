@@ -1,27 +1,28 @@
 package com.bigchickenstudios.potatofood;
 
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.loot.LootContext;
-import net.minecraft.loot.conditions.ILootCondition;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.ResourceLocation;
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.GsonHelper;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.common.loot.LootModifier;
+import net.minecraftforge.common.util.JsonUtils;
 
 import javax.annotation.Nonnull;
 import java.util.List;
-import java.util.Random;
 
 public final class ChestLootModifier extends LootModifier {
 
     private final ResourceLocation table;
     private final ItemRoll[] itemRolls;
 
-    protected ChestLootModifier(ILootCondition[] conditionsIn, ResourceLocation tableIn, ItemRoll[] itemRollsIn) {
+    protected ChestLootModifier(LootItemCondition[] conditionsIn, ResourceLocation tableIn, ItemRoll[] itemRollsIn) {
         super(conditionsIn);
         this.table = tableIn;
         this.itemRolls = itemRollsIn;
@@ -29,10 +30,10 @@ public final class ChestLootModifier extends LootModifier {
 
     @Nonnull
     @Override
-    protected List<ItemStack> doApply(List<ItemStack> generatedLoot, LootContext context) {
+    protected ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> generatedLoot, LootContext context) {
         if (context.getQueriedLootTableId().equals(this.table)) {
             for (ItemRoll itemRoll : this.itemRolls) {
-                itemRoll.roll(generatedLoot, context.getRandom());
+                itemRoll.roll(generatedLoot, context.getRandom().fork());
             }
         }
         return generatedLoot;
@@ -41,13 +42,13 @@ public final class ChestLootModifier extends LootModifier {
     public static final class Serializer extends GlobalLootModifierSerializer<ChestLootModifier> {
 
         @Override
-        public ChestLootModifier read(ResourceLocation location, JsonObject object, ILootCondition[] ailootcondition) {
-            ResourceLocation table = new ResourceLocation(JSONUtils.getString(object, "table"));
-            JsonArray itemJsonArray = JSONUtils.getJsonArray(object, "items");
+        public ChestLootModifier read(ResourceLocation location, JsonObject object, LootItemCondition[] ailootcondition) {
+            ResourceLocation table = new ResourceLocation(GsonHelper.getAsString(object, "table"));
+            JsonArray itemJsonArray = GsonHelper.getAsJsonArray(object, "items");
             ItemRoll[] itemRolls = new ItemRoll[itemJsonArray.size()];
             for (int i = 0; i < itemJsonArray.size(); i++) {
-                JsonObject itemJson = JSONUtils.getJsonObject(itemJsonArray.get(i), "item");
-                itemRolls[i] = new ItemRoll(JSONUtils.getFloat(itemJson, "chance"), JSONUtils.getInt(itemJson, "min"), JSONUtils.getInt(itemJson, "max"), JSONUtils.getItem(itemJson, "item"));
+                JsonObject itemJson = GsonHelper.convertToJsonObject(itemJsonArray.get(i), "item");
+                itemRolls[i] = new ItemRoll(GsonHelper.getAsFloat(itemJson, "chance"), GsonHelper.getAsInt(itemJson, "min"), GsonHelper.getAsInt(itemJson, "max"), GsonHelper.getAsItem(itemJson, "item"));
 
             }
             return new ChestLootModifier(ailootcondition, table, itemRolls);
@@ -73,7 +74,7 @@ public final class ChestLootModifier extends LootModifier {
             this.item = itemIn;
         }
 
-        public void roll(List<ItemStack> listIn, Random randomIn) {
+        public void roll(List<ItemStack> listIn, RandomSource randomIn) {
             if (randomIn.nextFloat() < this.chance) {
                 listIn.add(new ItemStack(item, this.min + randomIn.nextInt((this.max - this.min) + 1)));
             }
