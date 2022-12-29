@@ -37,30 +37,34 @@ public class PotatoFood {
     }
 
     private static class Foods {
-        private static final FoodProperties APPLE_PIE = (new FoodProperties.Builder()).nutrition(8).saturationMod(0.3F).build();
-        private static final FoodProperties BACON_EGG = (new FoodProperties.Builder()).nutrition(10).saturationMod(0.7F).build();
-        private static final FoodProperties BEEF_BURGER = (new FoodProperties.Builder()).nutrition(10).saturationMod(0.8F).build();
-        private static final FoodProperties BEETROOT_BURGER = (new FoodProperties.Builder()).nutrition(10).saturationMod(0.8F).build();
-        private static final FoodProperties CARROT_POTATO_SOUP = (new FoodProperties.Builder()).nutrition(6).saturationMod(0.8F).build();
-        private static final FoodProperties CHEESE = (new FoodProperties.Builder()).nutrition(3).saturationMod(0.6F).build();
-        private static final FoodProperties CHEESEBURGER = (new FoodProperties.Builder()).nutrition(12).saturationMod(0.6F).build();
-        private static final FoodProperties CHOCOLATE_ICE_CREAM = (new FoodProperties.Builder()).nutrition(5).saturationMod(0.6F).build();
-        private static final FoodProperties COD_NIGIRI = (new FoodProperties.Builder()).nutrition(4).saturationMod(0.3F).build();
-        private static final FoodProperties COD_SANDWICH = (new FoodProperties.Builder()).nutrition(8).saturationMod(0.6F).build();
-        private static final FoodProperties FISH_AND_CHIPS = (new FoodProperties.Builder()).nutrition(11).saturationMod(0.7F).build();
-        private static final FoodProperties FRIED_EGG = (new FoodProperties.Builder()).nutrition(3).saturationMod(0.6F).build();
-        private static final FoodProperties HAM_CHEESE_SANDWICH = (new FoodProperties.Builder()).nutrition(12).saturationMod(0.6F).build();
-        private static final FoodProperties HAM_SANDWICH = (new FoodProperties.Builder()).nutrition(10).saturationMod(0.7F).build();
-        private static final FoodProperties MEAT_PIZZA = (new FoodProperties.Builder()).nutrition(16).saturationMod(0.625F).build();
-        private static final FoodProperties MUESLI = (new FoodProperties.Builder()).nutrition(11).saturationMod(0.7F).build();
-        private static final FoodProperties PAELLA = (new FoodProperties.Builder()).nutrition(11).saturationMod(0.7F).build();
-        private static final FoodProperties PIZZA = (new FoodProperties.Builder()).nutrition(12).saturationMod(0.6F).build();
-        private static final FoodProperties RICE = (new FoodProperties.Builder()).nutrition(1).saturationMod(0.3F).build();
-        private static final FoodProperties SALMON_MAKI = (new FoodProperties.Builder()).nutrition(10).saturationMod(0.7F).build();
-        private static final FoodProperties SALMON_NIGIRI = (new FoodProperties.Builder()).nutrition(5).saturationMod(0.3F).build();
-        private static final FoodProperties SALMON_URAMAKI = (new FoodProperties.Builder()).nutrition(8).saturationMod(0.6F).build();
-        private static final FoodProperties SWEET_BERRY_PIE = (new FoodProperties.Builder()).nutrition(8).saturationMod(0.3F).build();
-        private static final FoodProperties YOGHURT = (new FoodProperties.Builder()).nutrition(5).saturationMod(0.6F).build();
+        private static final FoodProperties APPLE_PIE = getBuilder(8, 0.3F).build();
+        private static final FoodProperties BACON_EGG = getBuilder(10, 0.7F).build();
+        private static final FoodProperties BEEF_BURGER = getBuilder(10, 0.8F).build();
+        private static final FoodProperties BEETROOT_BURGER = getBuilder(10, 0.8F).build();
+        private static final FoodProperties CARROT_POTATO_SOUP = getBuilder(6, 0.8F).build();
+        private static final FoodProperties CHEESE = getBuilder(3, 0.6F).build();
+        private static final FoodProperties CHEESEBURGER = getBuilder(12, 0.6F).build();
+        private static final FoodProperties CHOCOLATE_ICE_CREAM = getBuilder(5, 0.6F).build();
+        private static final FoodProperties COD_NIGIRI = getBuilder(4, 0.3F).build();
+        private static final FoodProperties COD_SANDWICH = getBuilder(8, 0.6F).build();
+        private static final FoodProperties FISH_AND_CHIPS = getBuilder(11, 0.7F).build();
+        private static final FoodProperties FRIED_EGG = getBuilder(3, 0.6F).build();
+        private static final FoodProperties HAM_CHEESE_SANDWICH = getBuilder(12, 0.6F).build();
+        private static final FoodProperties HAM_SANDWICH = getBuilder(10, 0.7F).build();
+        private static final FoodProperties MEAT_PIZZA = getBuilder(16, 0.625F).build();
+        private static final FoodProperties MUESLI = getBuilder(11, 0.7F).build();
+        private static final FoodProperties PAELLA = getBuilder(11, 0.7F).build();
+        private static final FoodProperties PIZZA = getBuilder(12, 0.6F).build();
+        private static final FoodProperties RICE = getBuilder(1, 0.3F).build();
+        private static final FoodProperties SALMON_MAKI = getBuilder(10, 0.7F).build();
+        private static final FoodProperties SALMON_NIGIRI = getBuilder(5, 0.3F).build();
+        private static final FoodProperties SALMON_URAMAKI = getBuilder(8, 0.6F).build();
+        private static final FoodProperties SWEET_BERRY_PIE = getBuilder(8, 0.3F).build();
+        private static final FoodProperties YOGHURT = getBuilder(5, 0.6F).build();
+
+        private static FoodProperties.Builder getBuilder(int nutrition, float saturationMod) {
+            return (new FoodProperties.Builder()).nutrition(nutrition).saturationMod(saturationMod);
+        }
     }
 
     public static class Blocks {
@@ -82,7 +86,7 @@ public class PotatoFood {
         public static final RegistryObject<BowlFoodItem> CARROT_POTATO_SOUP = registerSoup("carrot_potato_soup", Foods.CARROT_POTATO_SOUP, (p) -> p.stacksTo(1));
         public static final RegistryObject<Item> CHEESE = registerFood("cheese", Foods.CHEESE, IIP);
         public static final RegistryObject<Item> CHEESEBURGER = registerFood("cheeseburger", Foods.CHEESEBURGER, (p) -> p.rarity(Rarity.UNCOMMON));
-        public static final RegistryObject<BlockItem> CHOCOLATE_CAKE = registerCake("chocolate_cake", Blocks.CHOCOLATE_CAKE, (p) -> p.stacksTo(1));
+        public static final RegistryObject<BlockItem> CHOCOLATE_CAKE = registerBlock("chocolate_cake", Blocks.CHOCOLATE_CAKE, (p) -> p.stacksTo(1));
         public static final RegistryObject<Item> CHOCOLATE_ICE_CREAM = registerFood("chocolate_ice_cream", Foods.CHOCOLATE_ICE_CREAM, IIP);
         public static final RegistryObject<Item> COD_NIGIRI = registerFood("cod_nigiri", Foods.COD_NIGIRI, IIP);
         public static final RegistryObject<Item> COD_SANDWICH = registerFood("cod_sandwich", Foods.COD_SANDWICH, IIP);
@@ -94,7 +98,7 @@ public class PotatoFood {
         public static final RegistryObject<BowlFoodItem> MUESLI = registerSoup("muesli", Foods.MUESLI, IIP);
         public static final RegistryObject<Item> PAELLA = registerFood("paella", Foods.PAELLA, IIP);
         public static final RegistryObject<Item> PIZZA = registerFood("pizza", Foods.PIZZA, (p) -> p.rarity(Rarity.UNCOMMON));
-        public static final RegistryObject<BlockItem> RICE = ITEM_DEFERRED_REGISTER.register("rice", () -> new BlockItem(Blocks.RICE.get(), (new Item.Properties()).food(Foods.RICE).tab(CreativeModeTab.TAB_FOOD)));
+        public static final RegistryObject<BlockItem> RICE = registerBlock("rice", Blocks.RICE, (p) -> p.food(Foods.RICE));
         public static final RegistryObject<Item> SALMON_MAKI = registerFood("salmon_maki", Foods.SALMON_MAKI, IIP);
         public static final RegistryObject<Item> SALMON_NIGIRI = registerFood("salmon_nigiri", Foods.SALMON_NIGIRI, IIP);
         public static final RegistryObject<Item> SALMON_URAMAKI = registerFood("salmon_uramaki", Foods.SALMON_URAMAKI, IIP);
@@ -107,7 +111,7 @@ public class PotatoFood {
         private static RegistryObject<BowlFoodItem> registerSoup(String name, FoodProperties food, UnaryOperator<Item.Properties> pMod) {
             return ITEM_DEFERRED_REGISTER.register(name, () -> new BowlFoodItem(pMod.apply(new Item.Properties()).food(food).tab(CreativeModeTab.TAB_FOOD)));
         }
-        private static RegistryObject<BlockItem> registerCake(String name, Supplier<? extends Block> block, UnaryOperator<Item.Properties> pMod) {
+        private static RegistryObject<BlockItem> registerBlock(String name, Supplier<? extends Block> block, UnaryOperator<Item.Properties> pMod) {
             return ITEM_DEFERRED_REGISTER.register(name, () -> new BlockItem(block.get(), pMod.apply(new Item.Properties()).tab(CreativeModeTab.TAB_FOOD)));
         }
     }
