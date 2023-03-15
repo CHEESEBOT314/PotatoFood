@@ -1,5 +1,6 @@
 {
     "parent": "minecraft:block/crop",
+    "render_type": "cutout",
     "textures": {
         "crop": "potatofood:block/rice_stage1"
     }

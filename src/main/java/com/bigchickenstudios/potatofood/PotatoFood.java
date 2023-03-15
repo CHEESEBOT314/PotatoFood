@@ -1,5 +1,6 @@
 package com.bigchickenstudios.potatofood;
 
+import com.mojang.serialization.Codec;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
@@ -7,7 +8,8 @@ import net.minecraft.world.level.block.CakeBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.material.Material;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
+import net.minecraftforge.common.loot.IGlobalLootModifier;
+import net.minecraftforge.event.CreativeModeTabEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
@@ -32,8 +34,7 @@ public class PotatoFood {
         Blocks.BLOCK_DEFERRED_REGISTER.register(bus);
         Items.ITEM_DEFERRED_REGISTER.register(bus);
         LootModifierSerializers.LOOT_MODIFIER_SERIALIZER_DEFERRED_REGISTER.register(bus);
-
-        DistExecutor.safeRunWhenOn(Dist.CLIENT, () -> PotatoFoodClient::init);
+        bus.addListener(this::onCreativeModeTabBuildContents);
     }
 
     private static class Foods {
@@ -106,19 +107,25 @@ public class PotatoFood {
         public static final RegistryObject<BowlFoodItem> YOGHURT = registerSoup("yoghurt", Foods.YOGHURT, IIP);
 
         private static RegistryObject<Item> registerFood(String name, FoodProperties food, UnaryOperator<Item.Properties> pMod) {
-            return ITEM_DEFERRED_REGISTER.register(name, () -> new Item(pMod.apply(new Item.Properties()).food(food).tab(CreativeModeTab.TAB_FOOD)));
+            return ITEM_DEFERRED_REGISTER.register(name, () -> new Item(pMod.apply(new Item.Properties()).food(food)));
         }
         private static RegistryObject<BowlFoodItem> registerSoup(String name, FoodProperties food, UnaryOperator<Item.Properties> pMod) {
-            return ITEM_DEFERRED_REGISTER.register(name, () -> new BowlFoodItem(pMod.apply(new Item.Properties()).food(food).tab(CreativeModeTab.TAB_FOOD)));
+            return ITEM_DEFERRED_REGISTER.register(name, () -> new BowlFoodItem(pMod.apply(new Item.Properties()).food(food)));
         }
         private static RegistryObject<BlockItem> registerBlock(String name, Supplier<? extends Block> block, UnaryOperator<Item.Properties> pMod) {
-            return ITEM_DEFERRED_REGISTER.register(name, () -> new BlockItem(block.get(), pMod.apply(new Item.Properties()).tab(CreativeModeTab.TAB_FOOD)));
+            return ITEM_DEFERRED_REGISTER.register(name, () -> new BlockItem(block.get(), pMod.apply(new Item.Properties())));
         }
     }
 
     public static class LootModifierSerializers {
-        private static final DeferredRegister<GlobalLootModifierSerializer<?>> LOOT_MODIFIER_SERIALIZER_DEFERRED_REGISTER = DeferredRegister.create(ForgeRegistries.Keys.LOOT_MODIFIER_SERIALIZERS, MODID);
+        private static final DeferredRegister<Codec<? extends IGlobalLootModifier>> LOOT_MODIFIER_SERIALIZER_DEFERRED_REGISTER = DeferredRegister.create(ForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, MODID);
 
-        public static final RegistryObject<GlobalLootModifierSerializer<ChestLootModifier>> CHEST_LOOT_MODIFIER = LOOT_MODIFIER_SERIALIZER_DEFERRED_REGISTER.register("chest_loot", ChestLootModifier.Serializer::new);
+        public static final RegistryObject<Codec<ChestLootModifier>> CHEST_LOOT_MODIFIER = LOOT_MODIFIER_SERIALIZER_DEFERRED_REGISTER.register("chest_loot", ChestLootModifier.CODEC);
+    }
+
+    public void onCreativeModeTabBuildContents(CreativeModeTabEvent.BuildContents event) {
+        if (event.getTab() == CreativeModeTabs.FOOD_AND_DRINKS) {
+            Items.ITEM_DEFERRED_REGISTER.getEntries().forEach(event::accept);
+        }
     }
 }

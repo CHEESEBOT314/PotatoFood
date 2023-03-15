@@ -1,7 +1,11 @@
 {
     "type": "potatofood:chest_loot",
-    "conditions": [],
-    "table": "minecraft:chests/abandoned_mineshaft",
+    "conditions": [
+        {
+            "condition": "forge:loot_table_id",
+            "loot_table_id": "minecraft:chests/abandoned_mineshaft"
+        }
+    ],
     "items": [
         {
             "chance": 0.1,
