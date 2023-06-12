@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "potatofood:salmon_salad"
+    ]
+  },
+  "criteria": {
+    "has_salmon": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:salmon"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "potatofood:salmon_salad"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_salmon",
+      "has_the_recipe"
+    ]
+  ]
+}

@@ -7,13 +7,13 @@
   ],
   "key": {
     "A": {
-      "item": "minecraft:bread"
+      "item": "potatofood:bread_slice"
     },
     "B": {
-      "item": "minecraft:cooked_cod"
+      "item": "minecraft:cooked_chicken"
     }
   },
   "result": {
-    "item": "potatofood:cod_sandwich"
+    "item": "potatofood:chicken_burger"
   }
 }

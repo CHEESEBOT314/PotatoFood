@@ -4,7 +4,6 @@ import com.mojang.serialization.Codec;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.CakeBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
@@ -41,12 +40,13 @@ public class PotatoFood {
         private static final FoodProperties BACON_EGG = getBuilder(10, 0.7F).build();
         private static final FoodProperties BEEF_BURGER = getBuilder(10, 0.8F).build();
         private static final FoodProperties BEETROOT_BURGER = getBuilder(10, 0.8F).build();
+        private static final FoodProperties BREAD_SLICE = getBuilder(1, 0.6F).build();
         private static final FoodProperties CARROT_POTATO_SOUP = getBuilder(6, 0.8F).build();
         private static final FoodProperties CHEESE = getBuilder(3, 0.6F).build();
         private static final FoodProperties CHEESEBURGER = getBuilder(12, 0.6F).build();
+        private static final FoodProperties CHICKEN_BURGER = getBuilder(9, 0.8F).build();
         private static final FoodProperties CHOCOLATE_ICE_CREAM = getBuilder(5, 0.6F).build();
         private static final FoodProperties COD_NIGIRI = getBuilder(4, 0.3F).build();
-        private static final FoodProperties COD_SANDWICH = getBuilder(8, 0.6F).build();
         private static final FoodProperties FISH_AND_CHIPS = getBuilder(11, 0.7F).build();
         private static final FoodProperties FRIED_EGG = getBuilder(3, 0.6F).build();
         private static final FoodProperties HAM_CHEESE_SANDWICH = getBuilder(12, 0.6F).build();
@@ -56,9 +56,12 @@ public class PotatoFood {
         private static final FoodProperties PAELLA = getBuilder(11, 0.7F).build();
         private static final FoodProperties PIZZA = getBuilder(12, 0.6F).build();
         private static final FoodProperties RICE = getBuilder(1, 0.3F).build();
+        private static final FoodProperties SALMON_CAKES = getBuilder(9, 0.8F).build();
         private static final FoodProperties SALMON_MAKI = getBuilder(10, 0.7F).build();
         private static final FoodProperties SALMON_NIGIRI = getBuilder(5, 0.3F).build();
+        private static final FoodProperties SALMON_SALAD = getBuilder(6, 0.3F).build();
         private static final FoodProperties SALMON_URAMAKI = getBuilder(8, 0.6F).build();
+        private static final FoodProperties SHEPHERDS_PIE = getBuilder(12, 0.6F).build();
         private static final FoodProperties SWEET_BERRY_PIE = getBuilder(8, 0.3F).build();
         private static final FoodProperties YOGHURT = getBuilder(5, 0.6F).build();
 
@@ -71,7 +74,7 @@ public class PotatoFood {
         private static final UnaryOperator<Block.Properties> IBP = UnaryOperator.identity();
         private static final DeferredRegister<Block> BLOCK_DEFERRED_REGISTER = DeferredRegister.create(ForgeRegistries.BLOCKS, MODID);
 
-        public static final RegistryObject<CakeBlock> CHOCOLATE_CAKE = BLOCK_DEFERRED_REGISTER.register("chocolate_cake", () -> new CakeBlock(Block.Properties.of().forceSolidOn().strength(0.5F).sound(SoundType.WOOL).pushReaction(PushReaction.DESTROY)));
+        public static final RegistryObject<CustomCakeBlock> CHOCOLATE_CAKE = BLOCK_DEFERRED_REGISTER.register("chocolate_cake", () -> new CustomCakeBlock(Block.Properties.of().forceSolidOn().strength(0.5F).sound(SoundType.WOOL).pushReaction(PushReaction.DESTROY)));
         public static final RegistryObject<RiceBlock> RICE = BLOCK_DEFERRED_REGISTER.register("rice", () -> new RiceBlock(Block.Properties.of().mapColor(MapColor.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.CROP)));
     }
 
@@ -83,13 +86,14 @@ public class PotatoFood {
         public static final RegistryObject<Item> BACON_EGG = registerFood("bacon_egg", Foods.BACON_EGG, IIP);
         public static final RegistryObject<Item> BEEF_BURGER = registerFood("beef_burger", Foods.BEEF_BURGER, IIP);
         public static final RegistryObject<Item> BEETROOT_BURGER = registerFood("beetroot_burger", Foods.BEETROOT_BURGER, IIP);
+        public static final RegistryObject<Item> BREAD_SLICE = registerFood("bread_slice", Foods.BREAD_SLICE, IIP);
         public static final RegistryObject<BowlFoodItem> CARROT_POTATO_SOUP = registerSoup("carrot_potato_soup", Foods.CARROT_POTATO_SOUP, (p) -> p.stacksTo(1));
         public static final RegistryObject<Item> CHEESE = registerFood("cheese", Foods.CHEESE, IIP);
         public static final RegistryObject<Item> CHEESEBURGER = registerFood("cheeseburger", Foods.CHEESEBURGER, (p) -> p.rarity(Rarity.UNCOMMON));
+        public static final RegistryObject<Item> CHICKEN_BURGER = registerFood("chicken_burger", Foods.CHICKEN_BURGER, IIP);
         public static final RegistryObject<BlockItem> CHOCOLATE_CAKE = registerBlock("chocolate_cake", Blocks.CHOCOLATE_CAKE, (p) -> p.stacksTo(1));
         public static final RegistryObject<Item> CHOCOLATE_ICE_CREAM = registerFood("chocolate_ice_cream", Foods.CHOCOLATE_ICE_CREAM, IIP);
         public static final RegistryObject<Item> COD_NIGIRI = registerFood("cod_nigiri", Foods.COD_NIGIRI, IIP);
-        public static final RegistryObject<Item> COD_SANDWICH = registerFood("cod_sandwich", Foods.COD_SANDWICH, IIP);
         public static final RegistryObject<Item> FISH_AND_CHIPS = registerFood("fish_and_chips", Foods.FISH_AND_CHIPS, IIP);
         public static final RegistryObject<Item> FRIED_EGG = registerFood("fried_egg", Foods.FRIED_EGG, IIP);
         public static final RegistryObject<Item> HAM_CHEESE_SANDWICH = registerFood("ham_cheese_sandwich", Foods.HAM_CHEESE_SANDWICH, (p) -> p.rarity(Rarity.UNCOMMON));
@@ -99,9 +103,12 @@ public class PotatoFood {
         public static final RegistryObject<Item> PAELLA = registerFood("paella", Foods.PAELLA, IIP);
         public static final RegistryObject<Item> PIZZA = registerFood("pizza", Foods.PIZZA, (p) -> p.rarity(Rarity.UNCOMMON));
         public static final RegistryObject<BlockItem> RICE = registerBlock("rice", Blocks.RICE, (p) -> p.food(Foods.RICE));
+        public static final RegistryObject<Item> SALMON_CAKES = registerFood("salmon_cakes", Foods.SALMON_CAKES, IIP);
         public static final RegistryObject<Item> SALMON_MAKI = registerFood("salmon_maki", Foods.SALMON_MAKI, IIP);
         public static final RegistryObject<Item> SALMON_NIGIRI = registerFood("salmon_nigiri", Foods.SALMON_NIGIRI, IIP);
+        public static final RegistryObject<BowlFoodItem> SALMON_SALAD = registerSoup("salmon_salad", Foods.SALMON_SALAD, IIP);
         public static final RegistryObject<Item> SALMON_URAMAKI = registerFood("salmon_uramaki", Foods.SALMON_URAMAKI, IIP);
+        public static final RegistryObject<BowlFoodItem> SHEPHERDS_PIE = registerSoup("shepherds_pie", Foods.SHEPHERDS_PIE, (p) -> p.rarity(Rarity.UNCOMMON));
         public static final RegistryObject<Item> SWEET_BERRY_PIE = registerFood("sweet_berry_pie", Foods.SWEET_BERRY_PIE, IIP);
         public static final RegistryObject<BowlFoodItem> YOGHURT = registerSoup("yoghurt", Foods.YOGHURT, IIP);
 
@@ -109,7 +116,7 @@ public class PotatoFood {
             return ITEM_DEFERRED_REGISTER.register(name, () -> new Item(pMod.apply(new Item.Properties()).food(food)));
         }
         private static RegistryObject<BowlFoodItem> registerSoup(String name, FoodProperties food, UnaryOperator<Item.Properties> pMod) {
-            return ITEM_DEFERRED_REGISTER.register(name, () -> new BowlFoodItem(pMod.apply(new Item.Properties()).food(food)));
+            return ITEM_DEFERRED_REGISTER.register(name, () -> new BowlFoodItem(pMod.apply(new Item.Properties()).stacksTo(1).food(food)));
         }
         private static RegistryObject<BlockItem> registerBlock(String name, Supplier<? extends Block> block, UnaryOperator<Item.Properties> pMod) {
             return ITEM_DEFERRED_REGISTER.register(name, () -> new BlockItem(block.get(), pMod.apply(new Item.Properties())));
